@@ -10,6 +10,7 @@ on:
             - main
     workflow_dispatch:
 
+        
 jobs:
     build-and-push-image:
         runs-on: ubuntu-latest
@@ -84,6 +85,13 @@ jobs:
             echo "any_changed: ${{ steps.changed-files-tests.outputs.any_changed }}"
             echo "changed: ${{ steps.changed-files-tests.outputs.changed }}"
             echo "event_name: ${{ github.event_name }}"
+            echo "DOCKERHUB_NAMESPACE: ${{ vars.DOCKERHUB_NAMESPACE }}"
+            echo "DOCKERHUB_REPOSITORY: ${{ vars.DOCKERHUB_REPOSITORY }}"
+        - name: Log in to DockerHub for tests
+          uses: docker/login-action@v3
+          with:
+            username: ${{ vars.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_PASSWORD }}
         - name: Set up Docker Compose
           run: docker compose up -d
         - name: Run Unit and Integration Tests
