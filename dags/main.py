@@ -4,6 +4,8 @@ from datetime import timedelta, datetime
 from api.video_stats import get_playlist_id, get_video_ids, extract_video_data, save_to_json
 from datawarehouse.dwh import staging_table, core_table
 from dataquality.soda import yt_elt_data_quality
+
+# CI/CD trigger comment
 local_tz = pendulum.timezone("America/Vancouver")
 
 default_args = {
